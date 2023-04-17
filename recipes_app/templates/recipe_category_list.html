@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block menu_item_recipe %} active {% endblock %}
+
+{% block content %}
+{% load static %}
+
+<section class="categories spad" style="margin-top: -120px;">
+    <div class="categories__post">
+      <div class="container">
+          <h4 style="margin-bottom:10px;font-weight:bold;">KATEGORIJA: <span style="color:#e26c1b;text-transform:uppercase;font-weight: bold;">{{ category.first.name }}</span></h4>
+          <hr style="height:2px;border-width:0;background-color:#e26c1b">
+        <div class="row">
+
+            <div class="col-lg-8 col-md-8">
+                {% for recipe in object_list %}
+                      <div class="categories__post__item categories__post__item--large">
+                        <div class="categories__post__item__pic set-bg"
+                             data-setbg="{{ recipe.image.url }}">
+                          <div class="post__meta">
+                            <h4>{{ recipe.create_at|date:"d" }}</h4>
+                            <span>{{ recipe.create_at|date:"M" }}</span>
+                          </div>
+                        </div>
+                        <div class="categories__post__item__text">
+                          <ul class="post__label--large">
+                            <li>{{ recipe.category }}</li>
+                            <li>{{ recipe.category.get_ancestors.last }}</li>
+                          </ul>
+                          <h3><a href="/receptai/{{ recipe.slug }}">{{ recipe.title }}</a></h3>
+                          <ul class="post__widget">
+                            <li>Autorius <span>{{ recipe.author }}</span></li>
+                            <li>Porcijos <span>{{ recipe.serves }}</span></li>
+                            <li>Gaminimo laikas <span>{{ recipe.cook_time }}</span> min</li>
+                          </ul>
+                          <p>{{ recipe.description|slice:":250"|safe }}</p>
+                          <a href="/receptai/{{ recipe.slug }}" class="primary-btn">Skaityti</a>
+                        </div>
+                      </div>
+                {% endfor %}
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="categories__pagination" align="center">
+                            {% if is_paginated %}
+                                {% if page_obj.has_previous %}
+                                    <a href="/receptai/kategorija/{{ category.first.tree_id }}">&laquo;</a>
+                                    {% if page_obj.number == 2 %}
+                                        <a href="/receptai/kategorija/{{ category.first.tree_id }}">&lt;</a>
+                                    {% else %}
+                                        <a href="?page={{ page_obj.previous_page_number }}">&lt;</a>
+                                    {% endif %}
+                                {% endif %}
+                                {% if page_obj.number == 1 %}
+                                    <a href="/receptai/kategorija/{{ category.first.tree_id }}">1</a>
+                                {% endif %}
+                                {% if page_obj.number > 1 %}
+                                    <a href="?page={{ page_obj.number }}">{{ page_obj.number }}</a>
+                                {% endif %}
+                                {% if page_obj.has_next %}
+                                    <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+                                    <a href="?page={{ page_obj.next_page_number }}">&gt;</a>
+                                    <a href="?page={{ paginator.num_pages }}">&raquo;</a>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-lg-4 col-md-4">
+                <div class="sidebar__item">
+                    <div class="sidebar__item__banner"><img src="{% static '/img/banner.jpg' %}" alt="">
+                    </div>
+                    <div class="sidebar__item__categories">
+                        <div class="sidebar__item__title">
+                            <h6>Kategorijos</h6>
+                        </div>
+                        <ul>
+                            <li><a href="{% url 'recipe_category_list' tree_id=1 %}">Užkandžiai <span>{{ uzkandziai_count }}</span></a></li>
+                                {% for recipe_count in recipe_count_by_category %}
+                                    {% if recipe_count.category__tree_id == 1 %}
+                                        <li class="p-left"><a href="{% url 'recipe_subcategory_list' id=recipe_count.category__id %}">{{ recipe_count.category__name }}<span>{{ recipe_count.recipe_count }}</span></a></li>
+                                    {% endif%}
+                                {% endfor %}
+
+                            <li><a href="{% url 'recipe_category_list' tree_id=2 %}">Sriubos <span>{{ sriubos_count }}</span></a></li>
+
+                            <li><a href="{% url 'recipe_category_list' tree_id=3 %}">Karštieji patiekalai <span>{{ karstieji_count }}</span></a></li>
+                                {% for recipe_count in recipe_count_by_category %}
+                                    {% if recipe_count.category__tree_id == 3 %}
+                                        <li class="p-left"><a href="{% url 'recipe_subcategory_list' id=recipe_count.category__id %}">{{ recipe_count.category__name }}<span>{{ recipe_count.recipe_count }}</span></a></li>
+                                    {% endif%}
+                                {% endfor %}
+
+                            <li><a href="{% url 'recipe_category_list' tree_id=4 %}">Gėrimai <span>{{ gerimai_count }}</span></a></li>
+                                {% for recipe_count in recipe_count_by_category %}
+                                    {% if recipe_count.category__tree_id == 4 %}
+                                        <li class="p-left"><a href="{% url 'recipe_subcategory_list' id=recipe_count.category__id %}">{{ recipe_count.category__name }}<span>{{ recipe_count.recipe_count }}</span></a></li>
+                                    {% endif%}
+                                {% endfor %}
+
+                            <li><a href="{% url 'recipe_category_list' tree_id=5 %}">Desertai <span>{{ desertai_count }}</span></a></li>
+                                {% for recipe_count in recipe_count_by_category %}
+                                    {% if recipe_count.category__tree_id == 5 %}
+                                        <li class="p-left"><a href="{% url 'recipe_subcategory_list' id=recipe_count.category__id %}">{{ recipe_count.category__name }}<span>{{ recipe_count.recipe_count }}</span></a></li>
+                                    {% endif%}
+                                {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+      </div>
+    </div>
+</section>
+
+{% endblock content %}

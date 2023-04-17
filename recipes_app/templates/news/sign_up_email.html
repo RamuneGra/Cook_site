@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="categories__post">
+      <div class="container">
+        <h4>Sveiki atvykę į Receptų Bankas!</h4>
+            <p>Ačiū, kad sekate mūsų naujienlaiškius.</p>
+                <p>Nebenorite gauti šių laiškų? Nutraukite prenumeratą paspaudę nuorodą
+                    <a href="{% url 'newsletter_unsubscribe' %}">Nebeprenumeruoti</a>
+                </p>
+      </div>
+    </div>
+
+{% endblock %}

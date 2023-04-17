@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block menu_item_random %} active {% endblock %}
+
+{% block content %}
+
+<section class="categories spad" style="margin-top: -120px;">
+    <div class="categories__post">
+      <div class="container">
+        <h4 style="margin-bottom:10px;font-weight:bold;color:#f4952f">Pasirinkite vieną ar kelis kriterijus, pagal kuriuos norite, kad atriktų atsitiktinį receptą:</h4>
+          <hr style="height:2px;border-width:0;background-color:#f4952f">
+        <form method="post" action="{% url 'random_recipe' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="site-btn">Gauti atsitiktinį receptą</button>
+        </form>
+        {% if random_recipe %}
+            <div class="row">
+                    <div class="col-lg-8 col-md-8" style="margin-left: auto; margin-right: auto; margin-top: 50px; align-items: center;">
+                      <div class="categories__post__item categories__post__item--large">
+                           <h3 style="margin-bottom:10px;font-weight:bold;background-color:#f4952f;color:white;text-align:center">ATSITIKTINIS RECEPTAS</h3>
+                           <div class="categories__post__item__pic set-bg"
+                                 data-setbg="{{ random_recipe.image.url }}">
+                              <div class="post__meta">
+                                <h4>{{ random_recipe.create_at|date:"d" }}</h4>
+                                <span>{{ random_recipe.create_at|date:"M" }}</span>
+                              </div>
+                           </div>
+                           <div class="categories__post__item__text">
+                              <ul class="post__label--large">
+                                <li>{{ random_recipe.category }}</li>
+                                <li>{{ random_recipe.category.get_ancestors.last }}</li>
+                              </ul>
+                              <h3><a href="/receptai/{{ recipe.slug }}">{{ random_recipe.title }}</a></h3>
+                              <ul class="post__widget">
+                                <li>Autorius <span>{{ random_recipe.author }}</span></li>
+                                <li>Porcijos <span>{{ random_recipe.serves }}</span></li>
+                                <li>Gaminimo laikas <span>{{ random_recipe.cook_time }}</span> min</li>
+                              </ul>
+                              <p>{{ random_recipe.description|slice:":250"|safe }}</p>
+                              <a href="/receptai/{{ random_recipe.slug }}" class="primary-btn">Skaityti</a>
+                           </div>
+                      </div>
+                    </div>
+            </div>
+        <div class="container">
+        {% elif form.is_bound %}
+          <h5 style="margin-top: 50px;font-style: italic">Pagal jūsų nurodytus kriterijus receptų neradome. Pasirinkite mažiau kriterijų ir bandykite dar kartą. Sėkmės!</h5>
+        {% else %}
+          <h5 style="margin-top: 50px;color:transparent">Pasirinkti kriterijus</h5>
+        {% endif %}
+        </div>
+
+      </div>
+    </div>
+</section>
+
+{% endblock %}

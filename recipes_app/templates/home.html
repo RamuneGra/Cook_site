@@ -1,0 +1,242 @@
+{% extends 'base.html' %}
+
+{% block menu_item_home %} active {% endblock %}
+
+{% block content %}
+{% load static %}
+<!-- Hero Section Begin -->
+<section class="hero">
+        <div class="hero__slider owl-carousel">
+            <div class="hero__item">
+                <div class="container-fluid">
+                    <div class="row">
+
+                        <div class="col-lg-6 p-0">
+                            {% for recipe in recipe_list %}
+                                {% if forloop.first %}
+                                    <div class="hero__inside__item hero__inside__item--wide set-bg"
+                                        data-setbg="{{ recipe.image.url }}">
+                                        <div class="hero__inside__item__text">
+                                            <div class="hero__inside__item--meta">
+                                                <span>{{ recipe.create_at|date:"d" }}</span>
+                                                <p>{{ recipe.create_at|date:"M" }}</p>
+                                            </div>
+                                            <div class="hero__inside__item--text">
+                                                <ul class="label">
+                                                    <li>{{ recipe.category }}</li>
+                                                    <li>{{ recipe.category.get_ancestors.last }}</li>
+                                                </ul>
+                                                <h4><a href="/receptai/{{ recipe.slug }}" style="color: white;">{{ recipe.title }}</a></h4>
+                                                <ul class="widget">
+                                                    <li>Autorius <span>{{ recipe.author }}</span></li>
+                                                    <li>Porcijos <span>{{ recipe.serves }}</span></li>
+                                                    <li>Gaminimo laikas <span>{{ recipe.cook_time }}</span> min</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+
+                        <div class="col-lg-3 col-md-6  p-0">
+                            {% for recipe in recipe_list %}
+                                {% if forloop.counter <= 3 and  forloop.counter > 1 %}
+                                    <div class="hero__inside__item hero__inside__item--small set-bg"
+                                        data-setbg="{{ recipe.image.url }}">
+                                        <div class="hero__inside__item__text">
+                                            <div class="hero__inside__item--meta">
+                                                <span>{{ recipe.create_at|date:"d" }}</span>
+                                                <p>{{ recipe.create_at|date:"M" }}</p>
+                                            </div>
+                                            <div class="hero__inside__item--text">
+                                                <ul class="label">
+                                                    <li>{{ recipe.category }}</li>
+                                                    <li>{{ recipe.category.get_ancestors.last }}</li>
+                                                </ul>
+                                                <h5><a href="/receptai/{{ recipe.slug }}" style="color: white;">{{ recipe.title }}</a></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+
+                        <div class="col-lg-3 col-md-6  p-0">
+                            {% for recipe in recipe_list %}
+                                {% if forloop.counter == 4 %}
+                                    <div class="hero__inside__item set-bg"
+                                         data-setbg="{{ recipe.image.url }}">
+                                        <div class="hero__inside__item__text">
+                                            <div class="hero__inside__item--meta">
+                                                <span>{{ recipe.create_at|date:"d" }}</span>
+                                                <p>{{ recipe.create_at|date:"M" }}</p>
+                                            </div>
+                                            <div class="hero__inside__item--text">
+                                                <ul class="label">
+                                                    <li>{{ recipe.category }}</li>
+                                                    <li>{{ recipe.category.get_ancestors.last }}</li>
+                                                </ul>
+                                                <h5><a href="/receptai/{{ recipe.slug }}" style="color: white;">{{ recipe.title }}</a></h5>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero__item">
+                <div class="container-fluid">
+                    <div class="row">
+
+                        <div class="col-lg-6 p-0">
+                            {% for recipe in recipe_list %}
+                                {% if forloop.counter == 5 %}
+                                    <div class="hero__inside__item hero__inside__item--wide set-bg"
+                                        data-setbg="{{ recipe.image.url }}">
+                                        <div class="hero__inside__item__text">
+                                            <div class="hero__inside__item--meta">
+                                                <span>{{ recipe.create_at|date:"d" }}</span>
+                                                <p>{{ recipe.create_at|date:"M" }}</p>
+                                            </div>
+                                            <div class="hero__inside__item--text">
+                                                <ul class="label">
+                                                    <li>{{ recipe.category }}</li>
+                                                    <li>{{ recipe.category.get_ancestors.last }}</li>
+                                                </ul>
+                                                <h4><a href="/receptai/{{ recipe.slug }}" style="color: white;">{{ recipe.title }}</a></h4>
+                                                <ul class="widget">
+                                                    <li>Autorius <span>{{ recipe.author }}</span></li>
+                                                    <li>Porcijos <span>{{ recipe.serves }}</span></li>
+                                                    <li>Gaminimo laikas <span>{{ recipe.cook_time }}</span> min</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+
+
+                        <div class="col-lg-3 col-md-6 p-0">
+                            {% for recipe in recipe_list %}
+                                {% if forloop.counter <= 7 and  forloop.counter > 5 %}
+                                    <div class="hero__inside__item hero__inside__item--small set-bg"
+                                        data-setbg="{{ recipe.image.url }}">
+                                        <div class="hero__inside__item__text">
+                                            <div class="hero__inside__item--meta">
+                                                <span>{{ recipe.create_at|date:"d" }}</span>
+                                                <p>{{ recipe.create_at|date:"M" }}</p>
+                                            </div>
+                                            <div class="hero__inside__item--text">
+                                                <ul class="label">
+                                                    <li>{{ recipe.category }}</li>
+                                                    <li>{{ recipe.category.get_ancestors.last }}</li>
+                                                </ul>
+                                                <h5><a href="/receptai/{{ recipe.slug }}" style="color: white;">{{ recipe.title }}</a></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 p-0">
+                            {% for recipe in recipe_list %}
+                                {% if forloop.counter == 8 %}
+                                    <div class="hero__inside__item set-bg"
+                                         data-setbg="{{ recipe.image.url }}">
+                                        <div class="hero__inside__item__text">
+                                            <div class="hero__inside__item--meta">
+                                                <span>{{ recipe.create_at|date:"d" }}</span>
+                                                <p>{{ recipe.create_at|date:"M" }}</p>
+                                            </div>
+                                            <div class="hero__inside__item--text">
+                                                <ul class="label">
+                                                    <li>{{ recipe.category }}</li>
+                                                    <li>{{ recipe.category.get_ancestors.last }}</li>
+                                                </ul>
+                                                <h5><a href="/receptai/{{ recipe.slug }}" style="color: white;">{{ recipe.title }}</a></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- Hero Section End -->
+
+
+<!-- Categories Section Begin -->
+<section class="categories spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="categories__item set-bg"
+                         data-setbg="static/img/categories/cat-1.jpg">
+                        <div class="categories__hover__text">
+                            <h5>Užkandžiai</h5>
+                            <p>{{ uzkandziai_count }} receptai</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="categories__item set-bg"
+                         data-setbg="static/img/categories/cat-2.jpg">
+                        <div class="categories__hover__text">
+                            <h5>Sriubos</h5>
+                            <p>{{ sriubos_count }} receptai</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="categories__item set-bg"
+                         data-setbg="static/img/categories/cat-3.jpg">
+                        <div class="categories__hover__text">
+                            <h5>Karštieji patiekalai</h5>
+                            <p>{{ karstieji_count }} receptai</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="categories__item set-bg"
+                         data-setbg="static/img/categories/cat-4.jpg">
+                        <div class="categories__hover__text">
+                            <h5>Gėrimai</h5>
+                            <p>{{ gerimai_count }} receptai</p>
+                        </div>
+                    </div>
+                </div>
+                 <div class="col-lg-3">
+                    <div class="categories__item set-bg"
+                         data-setbg="static/img/categories/cat-5.jpg">
+                        <div class="categories__hover__text">
+                            <h5>Desertai</h5>
+                            <p>{{ desertai_count }} receptai</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div style="margin-top:50px">
+            </div>
+            <div class="sidebar__subscribe__item">
+                <div class="sidebar__item__title"><img src="{% static '/img/quote.png' %}" alt="">
+                    <h5>{{ quote }}</h5>
+                    <h6>{{ author }}</h6>
+                </div>
+            </div>
+
+        </div>
+
+</section>
+<!-- Categories Section End -->
+
+{% endblock content %}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block menu_item_info %} active {% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        {% for info in infos %}
+            <p>{{ info.notes |safe }}</p>
+        {% endfor %}
+   </div>
+
+{% endblock %}

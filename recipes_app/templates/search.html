@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="categories__post">
+      <div class="container">
+        <h4>Paieškos pagal "{{query}}" rezultatai:</h4>
+          <hr style="height:2px;border-width:0;background-color:#e26c1b">
+        <div class="row">
+
+            {% if recipes %}
+              {% for recipe in recipes %}
+                <div class="col-lg-3 col-md-6  p-0">
+                  <div class="hero__inside__item hero__inside__item--small set-bg"
+                         data-setbg="{{ recipe.image.url }}">
+                      <div class="hero__inside__item__text">
+                        <div class="hero__inside__item--text">
+                          <ul class="label">
+                            <li>{{ recipe.category }}</li>
+                          </ul>
+                          <h5><a href="/receptai/{{ recipe.slug }}" style="color: white;">{{ recipe.title }}</a></h5>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              {% endfor %}
+            {% else %}
+                <div class="container">
+                    <h5 style="color: red; margin-top: 20px; margin-bottom: 100px;">Pagal jūsų paieškos žodžius nieko neradome</h5>
+                </div>
+            {% endif %}
+
+        </div>
+            {% if recipes %}
+                <div class="pagination" style="margin-bottom: 50px; color:#e26c1b;">
+                    <span class="step-links">
+                        {% if recipes.has_previous %}
+                            <a href="?query={{ query }}&page=1" style="color:#e26c1b">&laquo;</a>
+                            <a href="?query={{ query }}&page={{ recipes.previous_page_number }}" style="color:#e26c1b">&lt;</a>
+                        {% endif %}
+
+                        <span class="current">
+                            Puslapis {{ recipes.number }} iš {{ recipes.paginator.num_pages }}
+                        </span>
+
+                        {% if recipes.has_next %}
+                            <a href="?query={{ query }}&page={{ recipes.next_page_number }}" style="color:#e26c1b">&gt;</a>
+                            <a href="?query={{ query }}&page={{ recipes.paginator.num_pages }}" style="color:#e26c1b">&raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
+            {% endif %}
+      </div>
+    </div>
+
+{% endblock %}

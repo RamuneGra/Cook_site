@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block menu_item_home %} active {% endblock %}
+
+{% block content %}
+
+<section class="categories spad">
+    <div class="container">
+        <div class="sidebar__subscribe__item">
+            <div class="sidebar__item__title">
+                <h6>Prenumeruokite</h6>
+            </div>
+            {% if messages %}
+                {% for message in messages %}
+                    <div {% if message.tags %}  class="{{ message.tags}}" {% endif %} role="alert">
+                        {{message}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% else %}
+            <p>Prenumeruokite mūsų naujienlaiškį ir gaukite mūsų naujienas tiesiai į savo elektroninį paštą.</p>
+            <form method="post" action="#">
+                {% csrf_token %}
+                <input name="email" type="text" class="email-input" placeholder="Jūsų el. paštas">
+                <label for="s-agree-check"> Sutinku su taisyklėmis ir sąlygomis
+                    <input type="checkbox" id="s-agree-check" required>
+                    <span class="checkmark"></span>
+                </label>
+                <button type="submit" class="site-btn">Prenumeruoti</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+
+{% endblock content %}
